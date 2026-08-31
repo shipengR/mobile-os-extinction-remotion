@@ -26,11 +26,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Type-check project
+        run: npm run typecheck
+
       - name: Ensure Remotion browser
         run: npx remotion browser ensure
 
       - name: Render video
-        run: npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4
+        run: npm run build
 
       - name: Upload rendered video
         uses: actions/upload-artifact@v4

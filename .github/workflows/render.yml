@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install Noto CJK fonts
         run: |
@@ -26,7 +27,7 @@ jobs:
           sudo apt-get install -y --fix-missing fonts-noto-cjk
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Type-check project
         run: npm run typecheck
@@ -34,8 +35,18 @@ jobs:
       - name: Ensure Remotion browser
         run: npx remotion browser ensure
 
-      - name: Render video
-        run: npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 --concurrency=1 --gl=angle
+      - name: Render video with software Chromium rendering
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CHROME_HEADLESS: '1'
+        run: |
+          mkdir -p out
+          npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 \
+            --concurrency=1 \
+            --gl=swiftshader \
+            --disable-gpu \
+            --disable-dev-shm-usage \
+            --no-sandbox
 
       - name: Upload rendered video to Feishu
         continue-on-error: true

@@ -16,12 +16,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install Noto CJK fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
+          sudo apt-get install -y --fix-missing fonts-noto-cjk
 
       - name: Install dependencies
         run: npm install
@@ -33,7 +32,7 @@ jobs:
         run: npx remotion browser ensure
 
       - name: Render video
-        run: npm run build
+        run: npm run build -- --gl=angle
 
       - name: Upload rendered video
         uses: actions/upload-artifact@v4

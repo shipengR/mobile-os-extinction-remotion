@@ -7,8 +7,6 @@ name: Render Remotion video
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 env:
   PAGES_BASE_PATH: mobile-os-extinction-remotion
@@ -16,9 +14,6 @@ env:
 jobs:
   render:
     runs-on: ubuntu-22.04
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -72,15 +67,6 @@ jobs:
           name: Render ${{ github.run_number }}
           generate_release_notes: false
           files: out/mobile-os-extinction.mp4
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 
       - name: Upload rendered video artifact
         uses: actions/upload-artifact@v4

@@ -53,9 +53,9 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p out
-          npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 \
+          npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 \
             --concurrency=1 \
-            --gl=swiftshader \
+            --gl=angle \
             --chromium-options='{"args":["--disable-dev-shm-usage","--no-sandbox"]}' \
             --pixel-format=yuv420p
           test -s out/mobile-os-extinction.mp4

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "remotion studio src.tsx",
-    "build": "remotion render src.tsx MobileOSExtinction out/mobile-os-extinction.mp4"
+    "dev": "remotion studio src/index.ts",
+    "build": "remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4"
   },
   "dependencies": {
     "react": "^18.2.0",

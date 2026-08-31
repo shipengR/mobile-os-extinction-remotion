@@ -6,8 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-  FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
   FEISHU_FOLDER_TOKEN: Mk4ifVbusl63bidLFtHc2PS2n6f
 
 jobs:
@@ -40,7 +38,10 @@ jobs:
         run: npm run build -- --gl=angle
 
       - name: Upload rendered video to Feishu
-        if: ${{ secrets.FEISHU_APP_ID != '' && secrets.FEISHU_APP_SECRET != '' }}
+        if: ${{ env.FEISHU_APP_ID != '' && env.FEISHU_APP_SECRET != '' }}
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: node scripts/upload-to-feishu.mjs
 
       - name: Upload rendered video artifact (fallback)

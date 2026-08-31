@@ -38,6 +38,7 @@ jobs:
         run: npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 --concurrency=1 --gl=angle
 
       - name: Upload rendered video to Feishu
+        continue-on-error: true
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}

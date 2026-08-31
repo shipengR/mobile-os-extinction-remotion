@@ -55,7 +55,7 @@ jobs:
           mkdir -p out
           npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 \
             --concurrency=1 \
-            --gl=angle \
+            --gl=swiftshader \
             --chromium-options='{"args":["--disable-dev-shm-usage","--no-sandbox"]}' \
             --pixel-format=yuv420p
           test -s out/mobile-os-extinction.mp4

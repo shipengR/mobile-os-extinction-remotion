@@ -48,7 +48,6 @@ jobs:
           npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 \
             --concurrency=1 \
             --gl=swiftshader \
-            --disable-gpu \
             --disable-dev-shm-usage \
             --no-sandbox
           test -s out/mobile-os-extinction.mp4

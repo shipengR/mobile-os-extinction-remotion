@@ -35,7 +35,7 @@ jobs:
         run: npx remotion browser ensure
 
       - name: Render video
-        run: npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 --concurrency=1
+        run: npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 --concurrency=1 --gl=angle
 
       - name: Upload rendered video to Feishu
         env:

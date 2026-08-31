@@ -38,11 +38,15 @@ jobs:
         run: npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 --gl=angle
 
       - name: Upload rendered video to Feishu
-        if: ${{ secrets.FEISHU_APP_ID != '' && secrets.FEISHU_APP_SECRET != '' }}
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-        run: node scripts/upload-to-feishu.mjs
+        run: |
+          if [ -n "$FEISHU_APP_ID" ] && [ -n "$FEISHU_APP_SECRET" ]; then
+            node scripts/upload-to-feishu.mjs
+          else
+            echo "Feishu credentials are not configured; skipping upload."
+          fi
 
       - name: Upload rendered video artifact (fallback)
         uses: actions/upload-artifact@v4

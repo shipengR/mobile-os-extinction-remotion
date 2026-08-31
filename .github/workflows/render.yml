@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -48,6 +51,14 @@ jobs:
             --disable-dev-shm-usage \
             --no-sandbox
           test -s out/mobile-os-extinction.mp4
+
+      - name: Publish MP4 as a GitHub Release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: render-${{ github.run_number }}
+          name: Render ${{ github.run_number }}
+          generate_release_notes: false
+          files: out/mobile-os-extinction.mp4
 
       - name: Upload rendered video artifact
         uses: actions/upload-artifact@v4

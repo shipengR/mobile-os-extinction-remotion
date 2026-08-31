@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+  FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+  FEISHU_FOLDER_TOKEN: Mk4ifVbusl63bidLFtHc2PS2n6f
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -34,7 +39,10 @@ jobs:
       - name: Render video
         run: npm run build -- --gl=angle
 
-      - name: Upload rendered video
+      - name: Upload rendered video to Feishu
+        run: node scripts/upload-to-feishu.mjs
+
+      - name: Upload rendered video artifact (fallback)
         uses: actions/upload-artifact@v4
         with:
           name: mobile-os-extinction-video

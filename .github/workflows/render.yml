@@ -56,7 +56,7 @@ jobs:
           npx remotion render src/index.tsx MobileOSExtinction out/mobile-os-extinction.mp4 \
             --concurrency=1 \
             --gl=angle \
-            --chromium-options='{"args":["--disable-dev-shm-usage","--no-sandbox"]}' \
+            --chromium-options='{"args":["--disable-dev-shm-usage","--no-sandbox","--disable-gpu"]}' \
             --pixel-format=yuv420p
           test -s out/mobile-os-extinction.mp4
 

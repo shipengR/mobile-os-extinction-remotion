@@ -5,9 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-env:
-  FEISHU_FOLDER_TOKEN: Mk4ifVbusl63bidLFtHc2PS2n6f
-
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -52,21 +49,10 @@ jobs:
             --no-sandbox
           test -s out/mobile-os-extinction.mp4
 
-      - name: Upload rendered video to Feishu
-        continue-on-error: true
-        env:
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-        run: |
-          if [ -n "$FEISHU_APP_ID" ] && [ -n "$FEISHU_APP_SECRET" ]; then
-            node scripts/upload-to-feishu.mjs
-          else
-            echo "Feishu credentials are not configured; skipping upload."
-          fi
-
-      - name: Upload rendered video artifact (fallback)
+      - name: Upload rendered video artifact
         uses: actions/upload-artifact@v4
         with:
           name: mobile-os-extinction-video
           path: out/mobile-os-extinction.mp4
           if-no-files-found: error
+          retention-days: 30

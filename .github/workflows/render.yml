@@ -38,7 +38,7 @@ jobs:
         run: npx remotion render src/index.ts MobileOSExtinction out/mobile-os-extinction.mp4 --gl=angle
 
       - name: Upload rendered video to Feishu
-        if: ${{ env.FEISHU_APP_ID != '' && env.FEISHU_APP_SECRET != '' }}
+        if: ${{ secrets.FEISHU_APP_ID != '' && secrets.FEISHU_APP_SECRET != '' }}
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
